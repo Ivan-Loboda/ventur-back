@@ -13,7 +13,7 @@ const {
 router.get("/", catchErrors(getDebts));
 
 
-router.post("/create", catchErrors(addDebt));
+router.post("/create", addPostValidation, catchErrors(addDebt));
 
 
 module.exports = router;
