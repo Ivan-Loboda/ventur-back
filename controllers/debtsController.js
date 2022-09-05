@@ -16,13 +16,24 @@ const getDebts = async (req, res, next) => {
 
 
 const addDebt = async (req, res, next) => {
-    const newDebt = await addNewDebt(req.body);
-    res.status(201).json({
-        contentType: "application/json",
-        status: true,
-        response: newDebt,
-        message: "Debt aded succesful"
-    });
+    const debts = await getAllDebts()
+    if (debts.includes(item => item.phone === req.body.phone)) {
+        res.status(200).json({
+            contentType: "application/json",
+            status: false,
+            response: newDebt,
+            message: "Phone already in use"
+        });
+    } else {
+        const newDebt = await addNewDebt(req.body);
+        res.status(201).json({
+            contentType: "application/json",
+            status: true,
+            response: newDebt,
+            message: "Debt aded succesful"
+        });
+    }
+
 };
 
 
