@@ -17,11 +17,11 @@ const getDebts = async (req, res, next) => {
 
 const addDebt = async (req, res, next) => {
     const debts = await getAllDebts()
-    if (debts.includes(item => item.phone === req.body.phone)) {
+    if (debts.find(item => item.phone === req.body.phone)) {
         res.status(200).json({
             contentType: "application/json",
             status: false,
-            response: newDebt,
+            response: null,
             message: "Phone already in use"
         });
     } else {
