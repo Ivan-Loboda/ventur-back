@@ -25,18 +25,20 @@ const postSms = async (req, res, next) => {
 
         totalMonths = defaultMonth - resultAmount.month
 
-        const countYears = () => {
+        const countSavedTime = () => {
             let month = 0
             let year = 0
             if (totalMonths > 12) {
                 month = totalMonths % 12
                 year = totalMonths / 12
+            } else {
+                month = totalMonths
             }
             return {year, month}
         }
-        const resultTime = countYears()
+        const savedTime = countSavedTime()
 
-        message = `Hey ${name}! Pay extra ${req.body.extraAmount}/month. And you'll save $${Math.floor(amount - resultAmount.totalSum)} and ${resultTime.year} y, ${resultTime.month} months}`
+        message = `Hey ${name}! Pay extra ${req.body.extraAmount}/month. And you'll save $${Math.floor(amount - resultAmount.totalSum)} and ${savedTime.year} y, ${savedTime.month} months}`
     } else {
         message = `Hey ${name}! You have an outstanding amount of ${amount} for ${debtName}. Please don't forget to pay your minimum monthly payment of ${minPayment}/month.`
     }
